@@ -29,8 +29,11 @@ public class Database {
     //Connect to DB
     protected static Connection connectMariaDb() {
     	try {
+    		// Register driver
     		Driver driver = (Driver) Class.forName("org.mariadb.jdbc.Driver").newInstance();
 			DriverManager.registerDriver(driver);
+			 //Open a connection
+	        System.out.println("Connecting to database...");
 			conn = DriverManager.getConnection(CONN_STR,USER,PWD);
 			return conn;
 		} catch (SQLException e) {

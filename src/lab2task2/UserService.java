@@ -55,4 +55,22 @@ public class UserService {
 	      }
 	      return FAILURE_RESULT;
 	   }
+	   
+	   
+	   @PUT
+	   @Path("/users")
+	   @Produces(MediaType.APPLICATION_XML)
+	   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   public String updateUser(@FormParam("id") int id,
+	      @FormParam("name") String name,
+	      @FormParam("profession") String profession,
+	      @Context HttpServletResponse servletResponse) throws IOException{
+	      User user = new User(id, name, profession);
+	      int result = userDao.updateUser(user);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
+	   
 }

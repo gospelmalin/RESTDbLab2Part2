@@ -94,6 +94,46 @@ public class UserDao {
 	      return 0;
 	   }
 	
+	
+	public int updateUser(User pUser){
+	      List<User> userList = getAllUsers();
+
+	      for(User user: userList){
+	         if(user.getId() == pUser.getId()){
+	            int index = userList.indexOf(user);			
+	            userList.set(index, pUser);
+	           // saveUserList(userList);
+	            String query = "UPDATE USER SET name = ?,  profession = ? WHERE id = ?;";
+		         Connection conn = Database.connectMariaDb();
+		         try {
+					// Setup statement
+					 PreparedStatement stmt = conn.prepareStatement(query);
+	     
+					 // Set values
+					
+					stmt.setString(1, pUser.getName());
+					stmt.setString(2, pUser.getProfession());
+					stmt.setInt(3, pUser.getId());
+					
+					// Execute statment
+					stmt.executeUpdate();
+					
+					// Statment & conn
+					stmt.close();
+					Database.mariaDbClose();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
+	            return 1;
+	         }
+	      }		
+	      return 0;
+	   }
+	
+	
+	
 	/*
 	private void saveUserList(List<User> userList){ 
 	      try { 

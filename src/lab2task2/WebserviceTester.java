@@ -31,7 +31,7 @@ public class WebserviceTester {
 	      //test get user Web Service Method 
 	      tester.testGetUser();
 	      //test update user Web Service Method
-	   //   tester.testUpdateUser(); //TODO not yet added
+	      tester.testUpdateUser(); 
 	      //test add user Web Service Method
 	    //  tester.testAddUser();
 	      //test delete user Web Service Method
