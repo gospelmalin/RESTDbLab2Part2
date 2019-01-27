@@ -71,7 +71,7 @@ public class UserDao {
 				// Execute statment
 				stmt.executeUpdate();
 				
-				// Statment & conn
+				// Closing statement and connection
 				stmt.close();
 				Database.mariaDbClose();
 			} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class UserDao {
 					// Execute statment
 					stmt.executeUpdate();
 					
-					// Statment & conn
+					// Closing statement and connection
 					stmt.close();
 					Database.mariaDbClose();
 				} catch (SQLException e) {
@@ -142,7 +142,7 @@ public class UserDao {
 					// Execute statment
 					stmt.executeUpdate();
 					
-					// Closing
+					// Closing statement and connection
 					stmt.close();
 					Database.mariaDbClose();
 				} catch (SQLException e) {
