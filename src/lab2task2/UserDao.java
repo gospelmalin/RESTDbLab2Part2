@@ -132,7 +132,40 @@ public class UserDao {
 	      return 0;
 	   }
 	
-	
+	public int deleteUser(int id){
+	      List<User> userList = getAllUsers();
+
+	      for(User user: userList){
+	         if(user.getId() == id){
+	            int index = userList.indexOf(user);			
+	            userList.remove(index);
+	            String query = "DELETE FROM USER WHERE id=?;";
+		         Connection conn = Database.connectMariaDb();
+		         try {
+					// Setup statement
+					 PreparedStatement stmt = conn.prepareStatement(query);
+	     
+					 // Set values
+					
+					stmt.setInt(1, id);
+					
+					// Execute statment
+					stmt.executeUpdate();
+					
+					// Statment & conn
+					stmt.close();
+					Database.mariaDbClose();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
+	            
+	            return 1;   
+	         }
+	      }		
+	      return 0;
+	   }
 	
 	/*
 	private void saveUserList(List<User> userList){ 
