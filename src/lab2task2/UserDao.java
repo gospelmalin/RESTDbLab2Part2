@@ -1,7 +1,10 @@
 package lab2task2;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,57 @@ public class UserDao {
 	      
 	      return userList; 
 	   } 
+	
+	public User getUser(int id){
+	     // ArrayList<User> users = getAllUsers();
+		   List<User> users = getAllUsers();
+
+	      for(User user: users){
+	         if(user.getId() == id){
+	            return user;
+	         }
+	      }
+	      return null;
+	   }
+	
+	public int addUser(User pUser){
+	      List<User> userList = getAllUsers();
+	      boolean userExists = false;
+	      for(User user: userList){
+	         if(user.getId() == pUser.getId()){
+	            userExists = true;
+	            break;
+	         }
+	      }		
+	      if(!userExists){
+	         userList.add(pUser);
+	         // Setup query
+	         String query = "INSERT INTO USER(id, name, profession) VALUES(?,?,?);";
+	         Connection conn = Database.connectMariaDb();
+	         try {
+				// Setup statement
+				 PreparedStatement stmt = conn.prepareStatement(query);
+     
+				 // Set values
+				stmt.setInt(1, pUser.getId());
+				stmt.setString(2, pUser.getName());
+				stmt.setString(3, pUser.getProfession());
+				
+				// Execute statment
+				stmt.executeUpdate();
+				
+				// Statment & conn
+				stmt.close();
+				Database.mariaDbClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      
+	         return 1;
+	      }
+	      return 0;
+	   }
 	
 	/*
 	private void saveUserList(List<User> userList){ 

@@ -55,7 +55,7 @@ public class Database {
    * Maria db close.
    */
   //Close Connection
-   private void mariaDbClose() {
+   protected static void mariaDbClose() {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
