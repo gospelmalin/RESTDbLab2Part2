@@ -31,9 +31,9 @@ public class WebserviceTester {
 	      //test get user Web Service Method 
 	      tester.testGetUser();
 	      //test update user Web Service Method
-	    //  tester.testUpdateUser(); 
+	      tester.testUpdateUser(); 
 	      //test add user Web Service Method
-	    //  tester.testAddUser();
+	      tester.testAddUser();
 	      //test delete user Web Service Method
 	      tester.testDeleteUser();
 	   }
@@ -76,8 +76,8 @@ public class WebserviceTester {
 	   private void testUpdateUser(){
 	      Form form = new Form();
 	      form.param("id", "1");
-	      form.param("name", "suresh");
-	      form.param("profession", "clerk");
+	      form.param("name", "Anneli");
+	      form.param("profession", "shipper");
 
 	      String callResult = client
 	         .target(REST_SERVICE_URL)
@@ -97,7 +97,7 @@ public class WebserviceTester {
 	   private void testAddUser(){
 	      Form form = new Form();
 	      form.param("id", "3");
-	      form.param("name", "naresh");
+	      form.param("name", "Hans");
 	      form.param("profession", "teacher");
 
 	      String callResult = client
