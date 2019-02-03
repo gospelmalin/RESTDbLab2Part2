@@ -7,8 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class UserDao handles the queries for the database, isolating the database from the business layer.
+ */
 public class UserDao {
 
+	/**
+    * Show all users
+    *
+    */
 	public List<User> getAllUsers(){    
 	      List<User> userList = null; 
 	      
@@ -17,8 +24,7 @@ public class UserDao {
 	      try {
 	      String query = "SELECT * from user;";
 	      ResultSet rs = db.executeQuery(query);
-	      
-	     
+	      	     
 			while(rs.next()) {
 				  int id = rs.getInt(1);
 				  String name = rs.getString(2);
@@ -26,16 +32,18 @@ public class UserDao {
 				  userList.add(new User(id, name, profession));
 			  }
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	      
+			System.err.println("An SQL exception occured when trying to get all users from database " + e);
+		}	      
 	      return userList; 
 	   } 
 	
+	/**
+    * Show information about selected user
+    *
+    */
 	public User getUser(int id){
-	     // ArrayList<User> users = getAllUsers();
-		   List<User> users = getAllUsers();
+		
+		  List<User> users = getAllUsers();
 
 	      for(User user: users){
 	         if(user.getId() == id){
@@ -45,6 +53,10 @@ public class UserDao {
 	      return null;
 	   }
 	
+	/**
+	 * Add a new user
+	 *
+	 */
 	public int addUser(User pUser){
 	      List<User> userList = getAllUsers();
 	      boolean userExists = false;
@@ -68,23 +80,24 @@ public class UserDao {
 				stmt.setString(2, pUser.getName());
 				stmt.setString(3, pUser.getProfession());
 				
-				// Execute statment
+				// Execute statement
 				stmt.executeUpdate();
 				
 				// Closing statement and connection
 				stmt.close();
 				Database.mariaDbClose();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		      
+				System.err.println("An SQL exception occured when trying to add user " + e);
+			}		      
 	         return 1;
 	      }
 	      return 0;
 	   }
 	
-	
+	/**
+	 * Update user
+	 *
+	 */
 	public int updateUser(User pUser){
 	      List<User> userList = getAllUsers();
 
@@ -92,15 +105,13 @@ public class UserDao {
 	         if(user.getId() == pUser.getId()){
 	            int index = userList.indexOf(user);			
 	            userList.set(index, pUser);
-	           // saveUserList(userList);
 	            String query = "UPDATE USER SET name = ?,  profession = ? WHERE id = ?;";
 		         Connection conn = Database.connectMariaDb();
 		         try {
 					// Setup statement
 					 PreparedStatement stmt = conn.prepareStatement(query);
 	     
-					 // Set values
-					
+					// Set values	
 					stmt.setString(1, pUser.getName());
 					stmt.setString(2, pUser.getProfession());
 					stmt.setInt(3, pUser.getId());
@@ -112,16 +123,18 @@ public class UserDao {
 					stmt.close();
 					Database.mariaDbClose();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            
+					System.err.println("An SQL exception occured when trying to update user " + e);
+				}        
 	            return 1;
 	         }
 	      }		
 	      return 0;
 	   }
 	
+	/**
+	 * Delete user
+	 *
+	 */
 	public int deleteUser(int id){
 	      List<User> userList = getAllUsers();
 
@@ -135,8 +148,7 @@ public class UserDao {
 					// Setup statement
 					 PreparedStatement stmt = conn.prepareStatement(query);
 	     
-					 // Set values
-					
+					// Set values					
 					stmt.setInt(1, id);
 					
 					// Execute statment
@@ -146,10 +158,8 @@ public class UserDao {
 					stmt.close();
 					Database.mariaDbClose();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println("An SQL exception occured when trying to delete user " + e);
 				}
-  
 	            return 1;   
 	         }
 	      }		
