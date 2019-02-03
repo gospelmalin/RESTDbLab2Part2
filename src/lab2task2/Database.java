@@ -7,21 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The Class Database handles the database connection.
+ */
 public class Database {
 	
 	public Database() {}
-	
-	// JDBC driver name and database URL
- //  private static final String JDBC_DRIVER = "mariadb-java-client.Driver";  
- // (( private static final String DB_URL = "jdbc:mariadb://localhost/";
 
-	// Database name - database should exist
-   private static final String DATABASE = "USERDBLAB2";
+	
+ // Database name - database should exist
+	private static final String DATABASE = "userdblab2";
    // Connection string
-   private static final String CONN_STR = "jdbc:mariadb://localhost:3306/" + DATABASE;
+    private static final String CONN_STR = "jdbc:mariadb://localhost:3306/" + DATABASE;
    //  Database credentials
-   private static final String USER = "lab2";
-   private static final String PWD = "lab2";
+    private static final String USER = "lab2";
+    private static final String PWD = "lab2";
 	
 	//Connection
     private static Connection conn = null;
@@ -38,15 +38,12 @@ public class Database {
 			return conn;
 		} catch (SQLException e) {
 			System.err.println("An SQL exception occured when opening connection to MariaBD" + e);
-			} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			} catch (InstantiationException e1) {
+				System.err.println("An Instantiation exception occured when opening connection to MariaBD" + e1.getMessage());
+		} catch (IllegalAccessException e2) {
+			System.err.println("An Illegal Access exception occured when opening connection to MariaBD" + e2.getMessage());
+		} catch (ClassNotFoundException e3) {
+			System.err.println("Oops! Class not found when opening connection to MariaBD" + e3.getMessage());
 		}
     	System.out.println("Connected!");
     	return conn;
@@ -105,44 +102,6 @@ public class Database {
     	
     } 
     
-    /*
-    Statement stmt = null;
    
-    try{
-    	//Register JDBC driver
-        Class.forName(JDBC_DRIVER);
-
-        //Open a connection
-        System.out.println("Connecting to database...");
-        conn = DriverManager.getConnection(DB_URL, USER, PWD);
-        
-        //Execute create database query
-        System.out.println("Creating database...");
-        stmt = conn.createStatement();
-        
-        String sql = "CREATE DATABASE USERDBLAB2 IF NOT EXISTS";
-        stmt.executeUpdate(sql);
-        System.out.println("Database created successfully...");
-        
-    } catch (SQLException e) { // Handle JDBC exceptions
-		System.err.println("An SQL exception occured when creating database " + e);
-    } catch(Exception e1){ //Handle Class.forName exceptions 
-        e.printStackTrace();
-     } finally { // used to close resources
-    	 
-        try{
-           if(stmt!=null)
-              stmt.close();
-        }catch(SQLException e2){
-        }// nothing we can do
-        try{
-           if(conn!=null)
-              conn.close();
-        }catch(SQLException se){
-           se.printStackTrace();
-        }//end finally try
-     }//end try
-     System.out.println("Goodbye!");
-    */
 
 }
