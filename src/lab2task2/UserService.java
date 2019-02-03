@@ -16,14 +16,19 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
-//Själva webservicen
+/**
+ * The Class UserService is the actual webservice.
+ */
 @Path("/UserService")
 public class UserService {
 	UserDao userDao = new UserDao();
 	   private static final String SUCCESS_RESULT="<result>success</result>";
 	   private static final String FAILURE_RESULT="<result>failure</result>";
 
-	   
+	   /**
+	    * Show all users
+	    *
+	    */
 	   @GET
 	   @Path("/users")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -31,6 +36,10 @@ public class UserService {
 	      return userDao.getAllUsers();
 	   }
 	   
+	   /**
+	    * Show information about selected user
+	    *
+	    */
 	   @GET
 	   @Path("/users/{userid}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -38,6 +47,10 @@ public class UserService {
 	      return userDao.getUser(userid);
 	   }
 	   
+	   /**
+	    * Add new user
+	    *
+	    */
 	   @POST
 	   @Path("/users")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -54,7 +67,11 @@ public class UserService {
 	      return FAILURE_RESULT;
 	   }
 	   
-	   
+
+	   /**
+	    * Update user
+	    *
+	    */
 	   @PUT
 	   @Path("/users")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -71,7 +88,10 @@ public class UserService {
 	      return FAILURE_RESULT;
 	   }
 	   
-	   
+	   /**
+	    * Delete user
+	    *
+	    */
 	   @DELETE
 	   @Path("/users/{userid}")
 	   @Produces(MediaType.APPLICATION_XML)
