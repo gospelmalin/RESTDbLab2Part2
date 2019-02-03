@@ -9,7 +9,11 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
-
+/**
+ * The Class WebServiceTester is used to test the webservice.
+ * For these tests to work as expected with the below test data, the database should have at least 
+ * 2 users (id=1 and id =2, and no user with id=4 is allowed) in the user table before running.
+ */
 public class WebserviceTester {
 	
 	 private Client client;
@@ -22,6 +26,8 @@ public class WebserviceTester {
 	      this.client = ClientBuilder.newClient();
 	   }
 
+	   // For these tests to work as expected with the below test data, the database should have at least 
+	   // 2 users (id=1 and id =2, and no user with id=4 is allowed) in the user table before running.
 	   public static void main(String[] args){
 	      WebserviceTester tester = new WebserviceTester();
 	      //initialize the tester
@@ -76,8 +82,8 @@ public class WebserviceTester {
 	   private void testUpdateUser(){
 	      Form form = new Form();
 	      form.param("id", "1");
-	      form.param("name", "Anneli");
-	      form.param("profession", "shipper");
+	      form.param("name", "Sanna");
+	      form.param("profession", "Dancer");
 
 	      String callResult = client
 	         .target(REST_SERVICE_URL)
@@ -92,13 +98,13 @@ public class WebserviceTester {
 
 	      System.out.println("Test case name: testUpdateUser, Result: " + result );
 	   }
-	   //Test: Add User of id 3
+	   //Test: Add User of id 4
 	   //Test: Check if result is success XML.
 	   private void testAddUser(){
 	      Form form = new Form();
-	      form.param("id", "3");
-	      form.param("name", "Hans");
-	      form.param("profession", "teacher");
+	      form.param("id", "4");
+	      form.param("name", "Martinus");
+	      form.param("profession", "priest");
 
 	      String callResult = client
 	         .target(REST_SERVICE_URL)
@@ -114,13 +120,13 @@ public class WebserviceTester {
 
 	      System.out.println("Test case name: testAddUser, Result: " + result );
 	   }
-	   //Test: Delete User of id 3
+	   //Test: Delete User of id 2
 	   //Test: Check if result is success XML.
 	   private void testDeleteUser(){
 	      String callResult = client
 	         .target(REST_SERVICE_URL)
 	         .path("/{userid}")
-	         .resolveTemplate("userid", 3)
+	         .resolveTemplate("userid", 2)
 	         .request(MediaType.APPLICATION_XML)
 	         .delete(String.class);
 
