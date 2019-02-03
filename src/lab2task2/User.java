@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class User holds information about the user
+ */
 @XmlRootElement(name = "user")
 public class User implements Serializable {
 
@@ -13,6 +16,7 @@ public class User implements Serializable {
    private String name;
    private String profession;
 
+   // Constructors
    public User(){}
 
    public User(int id, String name, String profession){
@@ -21,6 +25,7 @@ public class User implements Serializable {
       this.profession = profession;
    }
 
+// Getters and setters
    public int getId() {
       return id;
    }
